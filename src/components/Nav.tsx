@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import {
   AppBar,
   Button,
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  anchorText: {
+    color: theme.palette.primary.dark,
+    textDecoration: "none",
+  },
 }));
 
 export function Nav() {
@@ -26,13 +31,17 @@ export function Nav() {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
-        <Typography variant="h6" className={classes.title}>
-          Vehicle Trader
-        </Typography>
+        <Container disableGutters maxWidth="xl">
+          <Typography variant="h6" className={classes.title}>
+            <Link href="/">
+              <a className={classes.anchorText}>Vehicle Trader</a>
+            </Link>
+          </Typography>
+        </Container>
 
         <Button color="inherit">
           <Link href="/">
-            <a style={{ color: "white" }}>
+            <a className={classes.anchorText}>
               <Typography color="inherit">Home</Typography>
             </a>
           </Link>
@@ -40,7 +49,7 @@ export function Nav() {
 
         <Button color="inherit">
           <Link href="/faq">
-            <a style={{ color: "white" }}>
+            <a className={classes.anchorText}>
               <Typography color="inherit">FAQ</Typography>
             </a>
           </Link>

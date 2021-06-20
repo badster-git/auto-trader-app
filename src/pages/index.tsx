@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
 
 const prices = [500, 1000, 5000, 15000, 25000, 50000, 2500000];
 
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 export default function Search({ makes, models, singleColumn }: SearchProps) {
   const classes = useStyles();
   const { query } = useRouter();
@@ -103,7 +108,7 @@ export default function Search({ makes, models, singleColumn }: SearchProps) {
                     </MenuItem>
                     {prices.map((price, idx) => (
                       <MenuItem value={price} key={idx}>
-                        {price}
+                        {formatter.format(price)}
                       </MenuItem>
                     ))}
                   </Field>
@@ -123,7 +128,7 @@ export default function Search({ makes, models, singleColumn }: SearchProps) {
                     </MenuItem>
                     {prices.map((price, idx) => (
                       <MenuItem value={price} key={idx}>
-                        {price}
+                        {formatter.format(price)}
                       </MenuItem>
                     ))}
                   </Field>
@@ -162,7 +167,7 @@ export function ModelSelect({ models, make, ...props }: ModelSelectProps) {
   const { data } = useSWR("/api/models/?make=" + make, {
     dedupingInterval: 60000,
     onSuccess: (newValues) => {
-      if (!newValues.map((a) => a.model).includes(field.value)) {
+      if (!newValues.map((a?: any) => a.model).includes(field.value)) {
         // we want to make this field to all
         setFieldValue("model", "all");
       }
@@ -172,17 +177,11 @@ export function ModelSelect({ models, make, ...props }: ModelSelectProps) {
   return (
     <FormControl fullWidth variant="outlined">
       <InputLabel id="search-model">Model</InputLabel>
-      <Select
-        name="model"
-        labelId="search-model"
-        label="Model"
-        {...field}
-        {...props}
-      >
+      <Select labelId="search-model" label="Model" {...field} {...props}>
         <MenuItem value="all">
           <em>All Models</em>
         </MenuItem>
-        {newModels.map((model, idx) => (
+        {newModels.map((model: any) => (
           <MenuItem value={model.model} key={model.model}>
             {`${model.model} (${model.count})`}
           </MenuItem>

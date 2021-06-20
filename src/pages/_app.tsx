@@ -1,5 +1,4 @@
 import { Box, Container, CssBaseline } from "@material-ui/core";
-import red from "@material-ui/core/colors/red";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
 import App from "next/app";
@@ -11,16 +10,16 @@ import { Nav } from "../components/Nav";
 axios.defaults.baseURL = "http://localhost:3000";
 
 // Create a theme instance.
+
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#556cd6",
+      light: "#E8E8E8",
+      main: "#FFFFFF",
+      dark: "#011521",
     },
-    error: {
-      main: red.A400,
-    },
-    background: {
-      default: "#fff",
+    secondary: {
+      main: "#010101",
     },
   },
 });
