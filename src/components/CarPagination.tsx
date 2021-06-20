@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import Link from "next/link";
 import { PaginationRenderItemParams } from "@material-ui/lab";
-import { ParsedUrlQuery, stringify } from "querystring";
+import { ParsedUrlQuery } from "querystring";
 import Pagination from "@material-ui/lab/Pagination";
 import PaginationItem from "@material-ui/lab/PaginationItem";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ export function CarPagination({ totalPages }: { totalPages: number }) {
   const { query } = useRouter();
   return (
     <Pagination
-      page={parseInt(getAsString(query.page) || "1")}
+      page={parseInt(getAsString(query.page!) || "1")}
       count={totalPages}
       renderItem={(item) => (
         <PaginationItem

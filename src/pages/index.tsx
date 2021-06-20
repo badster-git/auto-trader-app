@@ -47,10 +47,10 @@ export default function Search({ makes, models, singleColumn }: SearchProps) {
   const smValue = singleColumn ? 12 : 6;
 
   const initialValues = {
-    make: getAsString(query.make) || "all",
-    model: getAsString(query.model) || "all",
-    minPrice: getAsString(query.minPrice) || "all",
-    maxPrice: getAsString(query.maxPrice) || "all",
+    make: getAsString(query.make!) || "all",
+    model: getAsString(query.model!) || "all",
+    minPrice: getAsString(query.minPrice!) || "all",
+    maxPrice: getAsString(query.maxPrice!) || "all",
   };
 
   return (
@@ -192,7 +192,7 @@ export function ModelSelect({ models, make, ...props }: ModelSelectProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const make = getAsString(ctx.query.make);
+  const make = getAsString(ctx.query.make!);
   const [makes, models] = await Promise.all([getMakes(), getModels(make)]);
   return { props: { makes, models } };
 };
