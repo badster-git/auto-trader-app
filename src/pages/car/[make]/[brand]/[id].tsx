@@ -67,7 +67,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const id = ctx.params.id;
+  const id = ctx.params?.id;
   const db = await openDB();
   const car = await db.get<CarModel | undefined>(
     "SELECT * FROM Car WHERE id = ?",
