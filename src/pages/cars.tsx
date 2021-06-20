@@ -19,8 +19,6 @@ export interface CarListProps {
   models: Model[];
   cars: CarModel[];
   totalPages: number;
-  serverQuery;
-  ParsedUrlQuery;
 }
 
 export default function CarsList({
@@ -44,7 +42,7 @@ export default function CarsList({
       </Grid>
       <Grid container item xs={12} sm={7} md={9} lg={10} spacing={3}>
         <Grid item xs={12}>
-          <CarPagination totalPages={data?.totalPages} />
+          <CarPagination totalPages={data?.totalPages!} />
         </Grid>
         {(data?.cars || []).map((car) => (
           <Grid item key={car.id} xs={12} sm={6}>
@@ -52,7 +50,7 @@ export default function CarsList({
           </Grid>
         ))}
         <Grid item xs={12}>
-          <CarPagination totalPages={data?.totalPages} />
+          <CarPagination totalPages={data?.totalPages!} />
         </Grid>
       </Grid>
     </Grid>
@@ -60,7 +58,7 @@ export default function CarsList({
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const make = getAsString(ctx.query.make);
+  const make = getAsString(ctx.query.make!);
   const [makes, models, pagination] = await Promise.all([
     getMakes(),
     getModels(make),
